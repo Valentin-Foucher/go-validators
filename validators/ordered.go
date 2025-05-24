@@ -8,6 +8,7 @@ type orderedValidator[T constraints.Ordered, U any] struct {
 	*comparableValidator[T, U]
 }
 
+// Gt checks if the value of the field is greater than the bound.
 func (v *orderedValidator[T, U]) Gt(bound T) *orderedValidator[T, U] {
 	v.chain(func(inner *fieldValidator[T, U]) ValidationError {
 		if inner.Value <= bound {
@@ -20,6 +21,7 @@ func (v *orderedValidator[T, U]) Gt(bound T) *orderedValidator[T, U] {
 	return v
 }
 
+// Lt checks if the value of the field is lower than the bound.
 func (v *orderedValidator[T, U]) Lt(bound T) *orderedValidator[T, U] {
 	v.chain(func(inner *fieldValidator[T, U]) ValidationError {
 		if inner.Value >= bound {
@@ -32,6 +34,7 @@ func (v *orderedValidator[T, U]) Lt(bound T) *orderedValidator[T, U] {
 	return v
 }
 
+// Gte checks if the value of the field is greater than or equal to the bound.
 func (v *orderedValidator[T, U]) Gte(bound T) *orderedValidator[T, U] {
 	v.chain(func(inner *fieldValidator[T, U]) ValidationError {
 		if inner.Value < bound {
@@ -44,6 +47,7 @@ func (v *orderedValidator[T, U]) Gte(bound T) *orderedValidator[T, U] {
 	return v
 }
 
+// Lte checks if the value of the field is lower than or equal to the bound.
 func (v *orderedValidator[T, U]) Lte(bound T) *orderedValidator[T, U] {
 	v.chain(func(inner *fieldValidator[T, U]) ValidationError {
 		if inner.Value > bound {

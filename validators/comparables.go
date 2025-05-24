@@ -6,6 +6,7 @@ type comparableValidator[T comparable, U any] struct {
 	*fieldValidator[T, U]
 }
 
+// Equal checks if the value of the field is equal to the expected value.
 func (v *comparableValidator[T, U]) Equal(expected T) *comparableValidator[T, U] {
 	v.chain(func(inner *fieldValidator[T, U]) ValidationError {
 		if inner.Value != expected {
@@ -18,6 +19,7 @@ func (v *comparableValidator[T, U]) Equal(expected T) *comparableValidator[T, U]
 	return v
 }
 
+// NotEqual checks if the value of the field is not equal to the notExpected value.
 func (v *comparableValidator[T, U]) NotEqual(notExpected T) *comparableValidator[T, U] {
 	v.chain(func(inner *fieldValidator[T, U]) ValidationError {
 		if inner.Value == notExpected {
@@ -30,6 +32,7 @@ func (v *comparableValidator[T, U]) NotEqual(notExpected T) *comparableValidator
 	return v
 }
 
+// IsNotZeroValue checks if the value of the field is not left empty.
 func (v *comparableValidator[T, U]) IsNotZeroValue() *comparableValidator[T, U] {
 	v.chain(func(inner *fieldValidator[T, U]) ValidationError {
 		if isZeroValue(inner.Value) {
@@ -42,6 +45,7 @@ func (v *comparableValidator[T, U]) IsNotZeroValue() *comparableValidator[T, U] 
 	return v
 }
 
+// IsZeroValue checks if the value of the field is left empty.
 func (v *comparableValidator[T, U]) IsZeroValue() *comparableValidator[T, U] {
 	v.chain(func(inner *fieldValidator[T, U]) ValidationError {
 		if !isZeroValue(inner.Value) {
@@ -54,6 +58,7 @@ func (v *comparableValidator[T, U]) IsZeroValue() *comparableValidator[T, U] {
 	return v
 }
 
+// OneOf checks if the value of the field is one of the provided options.
 func (v *comparableValidator[T, U]) OneOf(options ...T) *comparableValidator[T, U] {
 	v.chain(func(inner *fieldValidator[T, U]) ValidationError {
 		if slices.Contains(options, inner.Value) {

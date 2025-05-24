@@ -15,7 +15,3 @@ func BoolFromValue(field string, value bool) *BoolValidator[any] {
 		comparableValidator: newComparableValueValidator(field, value),
 	}
 }
-
-func IntToBool(n int) bool {
-	return n != 0
-}

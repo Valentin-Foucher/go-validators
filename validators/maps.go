@@ -29,6 +29,7 @@ func MapFromValue[T, U comparable](field string, value map[T]U) *MapValidator[T,
 	}
 }
 
+// ContainsKey checks if the map contains the expected key.
 func (v *MapValidator[T, U, V]) ContainsKey(expected T) *MapValidator[T, U, V] {
 	v.chain(func(inner *fieldValidator[map[T]U, V]) ValidationError {
 		for _, key := range v.keys {
@@ -43,6 +44,7 @@ func (v *MapValidator[T, U, V]) ContainsKey(expected T) *MapValidator[T, U, V] {
 	return v
 }
 
+// ContainsValue checks if the map contains the expected value.
 func (v *MapValidator[T, U, V]) ContainsValue(expected U) *MapValidator[T, U, V] {
 	v.chain(func(inner *fieldValidator[map[T]U, V]) ValidationError {
 		for _, value := range v.values {
@@ -57,6 +59,7 @@ func (v *MapValidator[T, U, V]) ContainsValue(expected U) *MapValidator[T, U, V]
 	return v
 }
 
+// DoesNotContainKey checks if the map does not contain the expected key.
 func (v *MapValidator[T, U, V]) DoesNotContainKey(expected T) *MapValidator[T, U, V] {
 	v.chain(func(inner *fieldValidator[map[T]U, V]) ValidationError {
 		for _, key := range v.keys {
@@ -71,6 +74,7 @@ func (v *MapValidator[T, U, V]) DoesNotContainKey(expected T) *MapValidator[T, U
 	return v
 }
 
+// DoesNotContainValue checks if the map does not contain the expected value.
 func (v *MapValidator[T, U, V]) DoesNotContainValue(expected U) *MapValidator[T, U, V] {
 	v.chain(func(inner *fieldValidator[map[T]U, V]) ValidationError {
 		for _, value := range v.values {

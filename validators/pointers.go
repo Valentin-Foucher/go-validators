@@ -37,6 +37,7 @@ func Pointer[T, U any](object *U, field string, getValidators ...func(string, T)
 	}
 }
 
+// IsDefined checks if the pointer field is not nil.
 func (v PointerValidator[T, U]) IsDefined() PointerValidator[T, U] {
 	v.chain(func(*fieldValidator[T, U]) ValidationError {
 		if !v.isDefined {
@@ -49,6 +50,7 @@ func (v PointerValidator[T, U]) IsDefined() PointerValidator[T, U] {
 	return v
 }
 
+// IsNotDefined checks if the pointer field is nil.
 func (v PointerValidator[T, U]) IsNotDefined() PointerValidator[T, U] {
 	v.chain(func(*fieldValidator[T, U]) ValidationError {
 		if v.isDefined {

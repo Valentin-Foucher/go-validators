@@ -16,6 +16,8 @@ func (v logicalValidator) Validate() ValidationError {
 	return nil
 }
 
+// Or combines multiple validators and returns an error if all of them fail.
+// If any of the validators succeed, it returns nil.
 func Or(validators ...Validator) *logicalValidator {
 	executors := []func() ValidationError{
 		func() ValidationError {
@@ -41,6 +43,8 @@ func Or(validators ...Validator) *logicalValidator {
 	return &logicalValidator{executors: &executors}
 }
 
+// And combines multiple validators and returns an error if any of them fail.
+// If all validators succeed, it returns nil.
 func And(validators ...Validator) *logicalValidator {
 	executors := []func() ValidationError{
 		func() ValidationError {

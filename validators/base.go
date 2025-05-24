@@ -56,6 +56,7 @@ func (v *fieldValidator[T, U]) Default(defaultValue T) *fieldValidator[T, U] {
 	return v
 }
 
+// UpdateBeforeValidation allows setting a value before validation occurs.
 func (v *fieldValidator[T, U]) UpdateBeforeValidation(f func(*U) T) *fieldValidator[T, U] {
 	v.priorExecutorSetter = func() {
 		if v.Object == nil {
@@ -74,6 +75,9 @@ func (v *fieldValidator[T, U]) UpdateBeforeValidation(f func(*U) T) *fieldValida
 	return v
 }
 
+// This function is the main entry point for validation.
+// It accepts a variable number of Validator instances and returns a ValidationError
+// if any of the validators fail. If all validators pass, it returns nil.
 func Validate(validators ...Validator) ValidationError {
 	errorMessage := ""
 	for _, validator := range validators {

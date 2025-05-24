@@ -16,6 +16,7 @@ func EmailFromValue(field string, value string) *EmailValidator[any] {
 	}
 }
 
+// IsValid checks if the value of the field is a valid email address.
 func (v *EmailValidator[T]) IsValid() *EmailValidator[T] {
 	v.comparableValidator.chain(func(validator *fieldValidator[string, T]) ValidationError {
 		if !isAnEmail(validator.Value) {

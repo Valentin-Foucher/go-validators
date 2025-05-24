@@ -18,6 +18,7 @@ func SliceFromValue[T comparable](field string, value []T) *SliceValidator[T, an
 	}
 }
 
+// Contains checks if the slice contains the value.
 func (v *SliceValidator[T, U]) Contains(expected T) *SliceValidator[T, U] {
 	v.chain(func(inner *fieldValidator[[]T, U]) ValidationError {
 		if slices.Contains(inner.Value, expected) {
@@ -30,6 +31,7 @@ func (v *SliceValidator[T, U]) Contains(expected T) *SliceValidator[T, U] {
 	return v
 }
 
+// DoesNotContain checks if the slice does not contain the value.
 func (v *SliceValidator[T, U]) DoesNotContain(notExpected T) *SliceValidator[T, U] {
 	v.chain(func(inner *fieldValidator[[]T, U]) ValidationError {
 		if slices.Contains(inner.Value, notExpected) {

@@ -18,6 +18,7 @@ func TimeFromValue(field string, value time.Time) *TimeValidator[any] {
 	}
 }
 
+// After checks if the time is after the provided date.
 func (v *TimeValidator[T]) After(date time.Time) *TimeValidator[T] {
 	v.chain(func(inner *fieldValidator[time.Time, T]) ValidationError {
 		if !inner.Value.After(date) {
@@ -30,6 +31,7 @@ func (v *TimeValidator[T]) After(date time.Time) *TimeValidator[T] {
 	return v
 }
 
+// Before checks if the time is before the provided date.
 func (v *TimeValidator[T]) Before(date time.Time) *TimeValidator[T] {
 	v.chain(func(inner *fieldValidator[time.Time, T]) ValidationError {
 		if !inner.Value.Before(date) {

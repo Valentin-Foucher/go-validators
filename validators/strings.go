@@ -51,6 +51,7 @@ func (v *StringValidator[T]) UpdateBeforeValidation(f func(*T) string) *StringVa
 	return v
 }
 
+// MatchRegex checks if the string matches the provided regex pattern.
 func (v *StringValidator[T]) MatchRegex(regex string) *StringValidator[T] {
 	v.comparableValidator.chain(func(inner *fieldValidator[string, T]) ValidationError {
 		match, err := regexp.Compile(fmt.Sprintf("\\b%s\\b", regex))
@@ -68,6 +69,7 @@ func (v *StringValidator[T]) MatchRegex(regex string) *StringValidator[T] {
 	return v
 }
 
+// Contains checks if the string contains the specified substring.
 func (v *StringValidator[T]) Contains(substring string) *StringValidator[T] {
 	v.comparableValidator.chain(func(inner *fieldValidator[string, T]) ValidationError {
 		if !strings.Contains(inner.Value, substring) {
@@ -80,6 +82,7 @@ func (v *StringValidator[T]) Contains(substring string) *StringValidator[T] {
 	return v
 }
 
+// DoesNotContain checks if the string does not contain the specified substring.
 func (v *StringValidator[T]) DoesNotContain(substring string) *StringValidator[T] {
 	v.comparableValidator.chain(func(inner *fieldValidator[string, T]) ValidationError {
 		if strings.Contains(inner.Value, substring) {
@@ -92,6 +95,7 @@ func (v *StringValidator[T]) DoesNotContain(substring string) *StringValidator[T
 	return v
 }
 
+// StartsWith checks if the string starts with the specified prefix.
 func (v *StringValidator[T]) StartsWith(prefix string) *StringValidator[T] {
 	v.comparableValidator.chain(func(inner *fieldValidator[string, T]) ValidationError {
 		if !strings.HasPrefix(inner.Value, prefix) {
@@ -104,6 +108,7 @@ func (v *StringValidator[T]) StartsWith(prefix string) *StringValidator[T] {
 	return v
 }
 
+// DoesNotStartWith checks if the string does not start with the specified prefix.
 func (v *StringValidator[T]) DoesNotStartWith(prefix string) *StringValidator[T] {
 	v.comparableValidator.chain(func(inner *fieldValidator[string, T]) ValidationError {
 		if strings.HasPrefix(inner.Value, prefix) {
@@ -116,6 +121,7 @@ func (v *StringValidator[T]) DoesNotStartWith(prefix string) *StringValidator[T]
 	return v
 }
 
+// EndsWith checks if the string ends with the specified suffix.
 func (v *StringValidator[T]) EndsWith(suffix string) *StringValidator[T] {
 	v.comparableValidator.chain(func(inner *fieldValidator[string, T]) ValidationError {
 		if !strings.HasSuffix(inner.Value, suffix) {
@@ -128,6 +134,7 @@ func (v *StringValidator[T]) EndsWith(suffix string) *StringValidator[T] {
 	return v
 }
 
+// DoesNotEndWith checks if the string does not end with the specified suffix.
 func (v *StringValidator[T]) DoesNotEndWith(suffix string) *StringValidator[T] {
 	v.comparableValidator.chain(func(inner *fieldValidator[string, T]) ValidationError {
 		if strings.HasSuffix(inner.Value, suffix) {

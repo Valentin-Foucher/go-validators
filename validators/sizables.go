@@ -8,6 +8,7 @@ type sizableValidator[T sizable[U, V], U, V comparable, W any] struct {
 	*fieldValidator[T, W]
 }
 
+// MaxSize checks if the size of the field is less than or equal to the specified size.
 func (v *sizableValidator[T, U, V, W]) MaxSize(size int) *sizableValidator[T, U, V, W] {
 	v.chain(func(inner *fieldValidator[T, W]) ValidationError {
 		if len(inner.Value) > size {
@@ -20,6 +21,7 @@ func (v *sizableValidator[T, U, V, W]) MaxSize(size int) *sizableValidator[T, U,
 	return v
 }
 
+// MinSize checks if the size of the field is greater than or equal to the specified size.
 func (v *sizableValidator[T, U, V, W]) MinSize(size int) *sizableValidator[T, U, V, W] {
 	v.chain(func(inner *fieldValidator[T, W]) ValidationError {
 		if len(inner.Value) < size {
@@ -32,6 +34,7 @@ func (v *sizableValidator[T, U, V, W]) MinSize(size int) *sizableValidator[T, U,
 	return v
 }
 
+// MinMaxSize checks if the size of the field is between the specified min and max sizes.
 func (v *sizableValidator[T, U, V, W]) MinMaxSize(min, max int) *sizableValidator[T, U, V, W] {
 	return v.MinSize(min).MaxSize(max)
 }
